@@ -4,11 +4,62 @@
 #include "pch.h"
 #include <iostream>
 
+using namespace std;
+float goldSection(float a, float b,float theta);
+
+
+
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	float reslut = 0;
+	reslut = goldSection(-3, 3, 0.15);
+	cout << "reslut is " << reslut << endl;
+	getchar();
 }
 
+float goldSection(float a, float b, float theta ) {
+	
+	float a1, a2, f1, f2;
+	a1 = b - (0.618 * (b - a));
+	a2 = a + (0.618 * (b - a));
+
+	f1 = ((2 * a1) * a1) - (7 * a1) - 1;
+	f2 = ((2 * a2) * a2) - (7 * a2) - 1;
+
+	cout << "a1*= " << a1 << endl;
+	cout << "a2*= " << a2 << endl;
+	cout << "f1*= " << f1 << endl;
+	cout << "f2*= " << f2 << endl;
+
+	while (b-a>theta)
+	{
+		if (f1 < f2) {
+			b = a2;
+			a2 = a1;
+			f2 = f1;
+			a1 = b - (0.618 * (b - a));
+			f1 = (2 * a1 * a1) - (7 * a1) - 1;
+			cout << "f1 < f2 "  << endl;
+		}
+		else {
+			a = a1;
+			a1 = a2;
+			f1 = f2;
+			a2 = a + (0.618 * (b - a));
+			f2 = (2 * a2 * a2) - (7 * a2) - 1;
+			cout << "f1 > f2 " << endl;
+		}
+		cout << "a1= " << a1 << endl;
+		cout << "a2= " << a2 << endl;
+		cout << "f1= " << f1 << endl;
+		cout << "f2= " << f2 << endl;
+		cout << "b= " << b << endl;
+		cout << "a= " << a << endl;
+		cout << "b-a= " << b - a << endl;
+	}
+	
+	return (b + a) / 2;
+}
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
 // 调试程序: F5 或调试 >“开始调试”菜单
 
