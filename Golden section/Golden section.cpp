@@ -6,15 +6,19 @@
 
 using namespace std;
 float goldSection(float a, float b,float theta);
-
+float f(float x);
 
 
 int main()
 {
 	float reslut = 0;
-	reslut = goldSection(-3, 3, 0.15);
+	reslut = goldSection(0, 10, 0.2);
 	cout << "reslut is " << reslut << endl;
 	getchar();
+}
+
+float f(float x) {
+	return (x - 3) * (x - 3);
 }
 
 float goldSection(float a, float b, float theta ) {
@@ -23,13 +27,14 @@ float goldSection(float a, float b, float theta ) {
 	a1 = b - (0.618 * (b - a));
 	a2 = a + (0.618 * (b - a));
 
-	f1 = ((2 * a1) * a1) - (7 * a1) - 1;
-	f2 = ((2 * a2) * a2) - (7 * a2) - 1;
+	f1 = f(a1);
+	f2 = f(a2);
 
 	cout << "a1*= " << a1 << endl;
 	cout << "a2*= " << a2 << endl;
 	cout << "f1*= " << f1 << endl;
 	cout << "f2*= " << f2 << endl;
+	float xa, xb;
 
 	while (b-a>theta)
 	{
@@ -38,7 +43,9 @@ float goldSection(float a, float b, float theta ) {
 			a2 = a1;
 			f2 = f1;
 			a1 = b - (0.618 * (b - a));
-			f1 = (2 * a1 * a1) - (7 * a1) - 1;
+			f1 = f(a1);
+			xb = b;
+			xa = a2;
 			cout << "f1 < f2 "  << endl;
 		}
 		else {
@@ -46,8 +53,11 @@ float goldSection(float a, float b, float theta ) {
 			a1 = a2;
 			f1 = f2;
 			a2 = a + (0.618 * (b - a));
-			f2 = (2 * a2 * a2) - (7 * a2) - 1;
+			f2 = f(a2);
 			cout << "f1 > f2 " << endl;
+
+			xb = a1;
+			xa = a;
 		}
 		cout << "a1= " << a1 << endl;
 		cout << "a2= " << a2 << endl;
@@ -58,7 +68,7 @@ float goldSection(float a, float b, float theta ) {
 		cout << "b-a= " << b - a << endl;
 	}
 	
-	return (b + a) / 2;
+	return (xa + xb) / 2;
 }
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
 // 调试程序: F5 或调试 >“开始调试”菜单
